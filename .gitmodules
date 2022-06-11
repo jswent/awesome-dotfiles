@@ -7,3 +7,6 @@
 [submodule "lain"]
 	path = lain
 	url = https://github.com/lcpz/lain
+[submodule "rubato"]
+	path = rubato
+	url = https://github.com/andOrlando/rubato
