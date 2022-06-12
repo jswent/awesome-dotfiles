@@ -252,7 +252,7 @@ awful.screen.connect_for_each_screen(function(s)
         end,
         visible = true,
         bg = "#1c252acc",
-        border_width = 3,
+        border_width = 0,
         border_color = "#3EA4DD",
         shape = function(cr,w,h) gears.shape.rounded_rect(cr,w,h,20) end,
         widget = {
@@ -264,7 +264,7 @@ awful.screen.connect_for_each_screen(function(s)
                 separator,
                 s.mytaglist,
                 forced_width = dpi(105),
-                forced_height = dpi(15),
+                forced_height = dpi(17),
             },
             widget = wibox.container.margin,
         },
@@ -277,7 +277,7 @@ awful.screen.connect_for_each_screen(function(s)
         end,
         visible = true,
         bg = "#1c252acc",
-        border_width = 3,
+        border_width = 0,
         border_color = "#3EA4DD",
         shape = function(cr,w,h) gears.shape.rounded_rect(cr,w,h,20) end,
         widget = {
@@ -289,11 +289,33 @@ awful.screen.connect_for_each_screen(function(s)
                 s.mylayoutbox,
                 separator,
                 forced_width = dpi(148),
-                forced_height = dpi(15),
+                forced_height = dpi(17),
             },
             widget = wibox.container.margin,
         },
     }
+
+    --[[s.mywibox3 = awful.popup {
+        screen = s,
+        placement = function(c) 
+            return awful.placement.top(c, { margins = 8 }) 
+        end,
+        visible = true,
+        bg = "#1c252acc",
+        border_width = 3,
+        border_color = "#3EA4DD",
+        shape = function(cr,w,h) gears.shape.rounded_rect(cr,w,h,20) end,
+        widget = {
+            {
+                layout = wibox.layout.fixed.horizontal,
+                separator,
+                s.mytasklist,
+                forced_width = dpi(500),
+                forced_height = dpi(15),
+            },
+            widget = wibox.container.margin,
+        },
+    }--]]
     
     awful.screen.padding(screen[s], { top = 40})
 
@@ -629,8 +651,8 @@ client.connect_signal("request::titlebars", function(c)
 
     awful.titlebar(c) : setup {
         { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
+            --awful.titlebar.widget.iconwidget(c),
+            --buttons = buttons,
             layout  = wibox.layout.fixed.horizontal
         },
         { -- Middle
@@ -643,9 +665,9 @@ client.connect_signal("request::titlebars", function(c)
         },
         { -- Right
             awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
+            --awful.titlebar.widget.maximizedbutton(c),
+            --awful.titlebar.widget.stickybutton   (c),
+            --awful.titlebar.widget.ontopbutton    (c),
             awful.titlebar.widget.closebutton    (c),
             layout = wibox.layout.fixed.horizontal()
         },

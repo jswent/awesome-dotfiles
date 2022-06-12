@@ -37,8 +37,8 @@ theme.border_marked = "#91231c"
 theme.bar = "#3D7EA2"
 theme.bar_alt = "#212331"
 
-theme.titlebar_bg_focus = "#3F3F3F"
-theme.titlebar_bg_normal = "#3F3F3F"
+theme.titlebar_bg_focus = "#1c252acc"
+theme.titlebar_bg_normal = "#1c252acc"
 theme.titlebar_bg_focus = theme.bg_focus
 theme.titlebar_bg_normal = theme.bg_normal
 theme.titlebar_fg_focus = theme.fg_focus
@@ -81,22 +81,22 @@ theme.tasklist_disable_icon                     = false
 theme.useless_gap                               = 6
 theme.titlebar_close_button_focus               = "~/.config/awesome/icons/titlebar/close_focus.png"
 theme.titlebar_close_button_normal              = "~/.config/awesome/icons/titlebar/close_normal.png"
-theme.titlebar_ontop_button_focus_active        = "~/.config/awesome/icons/titlebar/ontop_focus_active.png"
+--[[theme.titlebar_ontop_button_focus_active        = "~/.config/awesome/icons/titlebar/ontop_focus_active.png"
 theme.titlebar_ontop_button_normal_active       = "~/.config/awesome/icons/titlebar/ontop_normal_active.png"
 theme.titlebar_ontop_button_focus_inactive      = "~/.config/awesome/icons/titlebar/ontop_focus_inactive.png"
 theme.titlebar_ontop_button_normal_inactive     = "~/.config/awesome/icons/titlebar/ontop_normal_inactive.png"
 theme.titlebar_sticky_button_focus_active       = "~/.config/awesome/icons/titlebar/sticky_focus_active.png"
 theme.titlebar_sticky_button_normal_active      = "~/.config/awesome/icons/titlebar/sticky_normal_active.png"
 theme.titlebar_sticky_button_focus_inactive     = "~/.config/awesome/icons/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_inactive    = "~/.config/awesome/icons/titlebar/sticky_normal_inactive.png"
-theme.titlebar_floating_button_focus_active     = "~/.config/awesome/icons/titlebar/floating_focus_active.png"
-theme.titlebar_floating_button_normal_active    = "~/.config/awesome/icons/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_inactive   = "~/.config/awesome/icons/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_inactive  = "~/.config/awesome/icons/titlebar/floating_normal_inactive.png"
-theme.titlebar_maximized_button_focus_active    = "~/.config/awesome/icons/titlebar/maximized_focus_active.png"
+theme.titlebar_sticky_button_normal_inactive    = "~/.config/awesome/icons/titlebar/sticky_normal_inactive.png"--]]
+theme.titlebar_floating_button_focus_active     = "~/.config/awesome/icons/titlebar/floating_focus.png"
+theme.titlebar_floating_button_normal_active    = "~/.config/awesome/icons/titlebar/floating_normal.png"
+theme.titlebar_floating_button_focus_inactive   = "~/.config/awesome/icons/titlebar/floating_focus.png"
+theme.titlebar_floating_button_normal_inactive  = "~/.config/awesome/icons/titlebar/floating_normal.png"
+--[[theme.titlebar_maximized_button_focus_active    = "~/.config/awesome/icons/titlebar/maximized_focus_active.png"
 theme.titlebar_maximized_button_normal_active   = "~/.config/awesome/icons/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_inactive  = "~/.config/awesome/icons/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_inactive = "~/.config/awesome/icons/titlebar/maximized_normal_inactive.png"
+theme.titlebar_maximized_button_normal_inactive = "~/.config/awesome/icons/titlebar/maximized_normal_inactive.png"--]]
 theme.bg_systray                                = "#111111"
 theme.clock_fontfg                              = "#8c8c8b"
 theme.clock_font                                = "DejaVu Sans Mono Bold 9"
@@ -133,9 +133,9 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = "/home/jswent/.config/awesome/icons/arch64.png"
-theme.menu_height = dpi(100)
-theme.menu_width  = dpi(300) 
-theme.menu_border_width = dpi(5)
+theme.menu_height = dpi(20)
+theme.menu_width  = dpi(90) 
+theme.menu_border_width = dpi(3)
 theme.menu_border_color = "#3EA4DD"
 
 -- You can add as many variables as
