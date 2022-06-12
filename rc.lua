@@ -71,7 +71,7 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    bling.layout.centered,
+    --bling.layout.centered,
     --awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
@@ -150,6 +150,26 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
+
+mysystray = wibox.widget {
+    {
+        {
+            {
+                {
+                    resize = true,
+                    widget = wibox.widget.systray,
+                },
+                margins = 0,
+                widget = wibox.container.margin,
+            },
+            width = 50,
+            height = dpi(17),
+            layout = wibox.container.constraint,
+        },
+        layout = wibox.layout.fixed.horizontal,
+    },
+    layout = wibox.layout.fixed.horizontal,
+}
 
 -- {{{ Wibar
 -- Create a textclock widget
@@ -251,8 +271,9 @@ awful.screen.connect_for_each_screen(function(s)
             return awful.placement.top_left(c, { margins = 8}) 
         end,
         visible = true,
+        type = "dock",
         bg = "#1c252acc",
-        border_width = 0,
+        border_width = 3,
         border_color = "#3EA4DD",
         shape = function(cr,w,h) gears.shape.rounded_rect(cr,w,h,20) end,
         widget = {
@@ -276,24 +297,41 @@ awful.screen.connect_for_each_screen(function(s)
             return awful.placement.top_right(c, { margins = 8 }) 
         end,
         visible = true,
+        type = "dock",
         bg = "#1c252acc",
-        border_width = 0,
+        border_width = 3,
         border_color = "#3EA4DD",
+        minimum_width = dpi(150),
+        --minimum_height = dpi(17),
         shape = function(cr,w,h) gears.shape.rounded_rect(cr,w,h,20) end,
         widget = {
             {
+                {
+                    separator,
+                    mysystray,
+                    --width = dpi(50),
+                    forced_height = dpi(17),
+                    layout = wibox.layout.fixed.horizontal,
+                },
+                {
+                    --wibox.widget.systray(),
+                    separator,
+                    mytextclock,
+                    s.mylayoutbox,
+                    separator,
+                    width = dpi(150),
+                    height = dpi(17),
+                    forced_width = dpi(148),
+                    forced_height = dpi(17),
+                    layout = wibox.layout.fixed.horizontal,
+                },
                 layout = wibox.layout.fixed.horizontal,
-                separator,
-                wibox.widget.systray(),
-                mytextclock,
-                s.mylayoutbox,
-                separator,
-                forced_width = dpi(148),
-                forced_height = dpi(17),
             },
             widget = wibox.container.margin,
         },
     }
+
+    --s.mywibox2:struts({ top = s.mywibox2.minimum_height + beautiful.useless_gap * 2})
 
     --[[s.mywibox3 = awful.popup {
         screen = s,
@@ -317,7 +355,7 @@ awful.screen.connect_for_each_screen(function(s)
         },
     }--]]
     
-    awful.screen.padding(screen[s], { top = 40})
+    awful.screen.padding(screen[s], { top = 45})
 
 end)
 -- }}}
@@ -457,9 +495,11 @@ clientkeys = gears.table.join(
         end,
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
-              {description = "close", group = "client"}),
+              {description = "close", group = "client"}), 
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
-              {description = "toggle floating", group = "client"}),
+              {description = "toggle floating", group = "client"}), 
+    awful.key({ modkey, "Control" }, "t", function (c) awful.titlebar.toggle(c) end,
+              {description = "toggle titlebar", group = "client"}),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
@@ -671,8 +711,10 @@ client.connect_signal("request::titlebars", function(c)
             awful.titlebar.widget.closebutton    (c),
             layout = wibox.layout.fixed.horizontal()
         },
-        layout = wibox.layout.align.horizontal
+        layout = wibox.layout.align.horizontal,
     }
+
+    awful.titlebar.hide(c)
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.
