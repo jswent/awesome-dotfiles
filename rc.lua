@@ -72,7 +72,7 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     --bling.layout.centered,
-    --awful.layout.suit.floating,
+    awful.layout.suit.floating,
     awful.layout.suit.tile,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
@@ -225,6 +225,7 @@ local function set_wallpaper(s)
         end
         gears.wallpaper.maximized(wallpaper, s, true)
     end
+
 end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
@@ -235,7 +236,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5" }, s, awful.layout.layouts[2])
+    awful.tag({ "1", "2", "3", "4", "5" }, s, awful.layout.layouts[3])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -272,7 +273,8 @@ awful.screen.connect_for_each_screen(function(s)
         end,
         visible = true,
         type = "dock",
-        bg = "#1c252acc",
+        bg = "#3B4252cc",
+        --bg = "#1c252acc",
         border_width = 3,
         border_color = "#3EA4DD",
         shape = function(cr,w,h) gears.shape.rounded_rect(cr,w,h,20) end,
@@ -298,7 +300,8 @@ awful.screen.connect_for_each_screen(function(s)
         end,
         visible = true,
         type = "dock",
-        bg = "#1c252acc",
+        --bg = "#1c252acc",
+        bg = "#3B4252cc",
         border_width = 3,
         border_color = "#3EA4DD",
         minimum_width = dpi(150),
@@ -402,9 +405,9 @@ globalkeys = gears.table.join(
               {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
-    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
+    awful.key({ modkey, "Shift"   }, "Right", function () awful.client.swap.byidx(  1)    end,
               {description = "swap with next client by index", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
+    awful.key({ modkey, "Shift"   }, "Left", function () awful.client.swap.byidx( -1)    end,
               {description = "swap with previous client by index", group = "client"}),
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
@@ -480,8 +483,10 @@ globalkeys = gears.table.join(
               end,
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+    awful.key({ modkey }, "p", 
+              function() 
+                  awful.util.spawn("scrot -q 10 -e 'mv $f ~/Pictures'") end,
+                  {description = "show the menubar", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
@@ -725,3 +730,11 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+-- Start feh
+awesome.connect_signal(
+    'startup',
+    function(args) 
+        awful.util.spawn('sh /home/jswent/.fehbg') 
+    end 
+)
