@@ -142,7 +142,9 @@ separator = wibox.widget {
 })--]]
 
 mylauncher = awful.widget.launcher({ image = "/home/jswent/.config/awesome/icons/arch64.png",
-                                     menu = mymainmenu })
+                                     menu = mymainmenu,
+                                     top = 10,
+                                     bottom = 10})
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
@@ -150,6 +152,9 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
+
+beautiful.bg_systray = "#3B4252cc"
+beautiful.systray_icon_spacing = 10
 
 mysystray = wibox.widget {
     {
@@ -159,10 +164,12 @@ mysystray = wibox.widget {
                     resize = true,
                     widget = wibox.widget.systray,
                 },
-                margins = 0,
+                top = 4,
+                bottom = 4,
+                --margins = dpi(),
                 widget = wibox.container.margin,
             },
-            width = 50,
+            --width = 50,
             height = dpi(17),
             layout = wibox.container.constraint,
         },
@@ -401,8 +408,6 @@ globalkeys = gears.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "Right", function () awful.client.swap.byidx(  1)    end,
@@ -431,18 +436,21 @@ globalkeys = gears.table.join(
               {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
-
-    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
+    awful.key({ modkey }, "l",
+              function ()
+                  awful.util.spawn('dm-tool lock') end,
+                  {description = "lock lightdm", group="lightdm"}),
+    awful.key({ modkey,           }, "w",     function () awful.tag.incmwfact( 0.05)          end,
               {description = "increase master width factor", group = "layout"}),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)          end,
               {description = "decrease master width factor", group = "layout"}),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1, nil, true) end,
               {description = "increase the number of master clients", group = "layout"}),
-    awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1, nil, true) end,
+    awful.key({ modkey, "Shift"   }, "w",     function () awful.tag.incnmaster(-1, nil, true) end,
               {description = "decrease the number of master clients", group = "layout"}),
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1, nil, true)    end,
               {description = "increase the number of columns", group = "layout"}),
-    awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1, nil, true)    end,
+    awful.key({ modkey, "Control" }, "w",     function () awful.tag.incncol(-1, nil, true)    end,
               {description = "decrease the number of columns", group = "layout"}),
     awful.key({ modkey,           }, "space", function () awful.layout.inc( 1)                end,
               {description = "select next", group = "layout"}),
@@ -464,24 +472,25 @@ globalkeys = gears.table.join(
     -- Prompt
     awful.key({ modkey }, "r",
               function ()
-                  awful.util.spawn('rofi -show drun') end,
+                  awful.util.spawn('/home/jswent/scripts/launcher') end,
                   {description = "run rofi", group="launcher"}),
 
     awful.key({ modkey }, "Tab",
               function ()
-                  awful.util.spawn('rofi -show window') end,
+                  awful.util.spawn('rofi -show window -theme "/home/jswent/.config/rofi/themes/launcher.rasi"') end,
                   {description = "show rofi windows", group="launcher"}),
 
-    awful.key({ modkey }, "x",
+    awful.key({ modkey, "Control" }, "l",
               function ()
-                  awful.prompt.run {
-                    prompt       = "Run Lua code: ",
-                    textbox      = awful.screen.focused().mypromptbox.widget,
-                    exe_callback = awful.util.eval,
-                    history_path = awful.util.get_cache_dir() .. "/history_eval"
-                  }
-              end,
-              {description = "lua execute prompt", group = "awesome"}),
+                  awful.util.spawn('/home/jswent/scripts/powermenu') end,
+                  {description = "show rofi windows", group="launcher"}),
+
+    awful.key({ modkey, "Control" }, "s",
+              function ()
+                  awful.util.spawn('/home/jswent/scripts/slauncher') end,
+                  {description = "run scripts", group="launcher"}),
+
+
     -- Menubar
     awful.key({ modkey }, "p", 
               function() 
@@ -499,8 +508,8 @@ clientkeys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end,
-              {description = "close", group = "client"}), 
+    awful.key({ modkey,           }, "q",      function (c) c:kill()                         end,
+              {description = "quit window", group = "client"}), 
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}), 
     awful.key({ modkey, "Control" }, "t", function (c) awful.titlebar.toggle(c) end,
@@ -524,7 +533,7 @@ clientkeys = gears.table.join(
             c:raise()
         end ,
         {description = "(un)maximize", group = "client"}),
-    awful.key({ modkey, "Control" }, "m",
+    awful.key({ modkey, "Alt" }, "m",
         function (c)
             c.maximized_vertical = not c.maximized_vertical
             c:raise()
