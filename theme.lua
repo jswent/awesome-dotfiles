@@ -101,6 +101,8 @@ theme.bg_systray                                = "#111111"
 theme.clock_fontfg                              = "#8c8c8b"
 theme.clock_font                                = "DejaVu Sans Mono Bold 9"
 
+theme.hotkeys_bg = "#3B4252cc"
+
 -- There are other variable sets
 -- overriding the default one when
 -- defined, the sets are:
